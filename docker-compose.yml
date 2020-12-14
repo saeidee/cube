@@ -1,0 +1,65 @@
+version: '2'
+services:
+    cube-fpm:
+        container_name: cube-fpm
+        build: ./Dockerfiles
+        restart: unless-stopped
+        environment:
+            DB_HOST: cube-mysql
+            DB_DATABASE: cube
+            DB_USERNAME: cube
+            DB_PASSWORD: cube
+            DB_CONNECTION: mysql
+        links:
+            - cube-mysql
+            - cube-redis
+        volumes:
+            - ./:/var/www
+            - ./Dockerfiles/php-fpm/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - app-network
+
+    cube-nginx:
+        container_name: cube-nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 81:80
+            - 444:443
+        volumes:
+            - ./:/var/www
+            - ./Dockerfiles/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+    cube-mysql:
+        container_name: cube-mysql
+        image: mysql:latest
+        restart: unless-stopped
+        ports:
+            - 127.0.0.1:3306:3306
+        command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
+        volumes:
+            - .docker/data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: cube
+            MYSQL_USER: cube
+            MYSQL_PASSWORD: cube
+            MYSQL_ROOT_PASSWORD: cube
+        networks:
+            - app-network
+
+    cube-redis:
+        container_name: cube-redis
+        image: redis:latest
+        restart: unless-stopped
+        ports:
+            - 127.0.0.1:6380:6379
+        volumes:
+            - .docker/data/redis:/data
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/digi-menu" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/digi-menu/MOFA" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mafqod" vcs="Git" />
+  </component>
+</project>
