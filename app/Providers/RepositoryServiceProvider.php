@@ -14,8 +14,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'App\Repositories\User\UserRepositoryInterface',
-            'App\Repositories\User\UserRepository'
+            'App\Repositories\Task\TaskRepositoryInterface',
+            'App\Repositories\Task\TaskRepository'
         );
     }
 }

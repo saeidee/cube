@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\TaskResource;
+use App\Http\Requests\Task\UpdateRequest;
+use App\Http\Requests\Task\CreateRequest;
 use App\Repositories\Task\TaskRepositoryInterface;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * Class TaskController
@@ -24,65 +28,52 @@ class TaskController extends Controller
     }
 
     /**
-     * @return Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
-        return $this->taskRepository->all();
+        return TaskResource::collection($this->taskRepository->all());
     }
 
     /**
-     * @return Response
+     * @param CreateRequest $request
+     * @return TaskResource
      */
-    public function create()
+    public function store(CreateRequest $request)
     {
-        //
+        return new TaskResource($this->taskRepository->save($request->validated()));
     }
 
     /**
-     * @param Request $request
-     * @return Response
+     * @param int $id
+     * @param UpdateRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function update(int $id, UpdateRequest $request)
     {
-        //
+        $this->taskRepository->update($request->validated(), $id);
+
+        return new JsonResponse(['message' => 'Successfully updated'], Response::HTTP_OK);
     }
 
     /**
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return TaskResource
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        return new TaskResource($this->taskRepository->findById($id));
     }
 
     /**
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function edit($id)
+    public function destroy(int $id)
     {
-        //
-    }
+        $this->taskRepository->delete($id);
 
-    /**
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return new JsonResponse(['message' => 'Successfully deleted'], Response::HTTP_OK);
     }
 }

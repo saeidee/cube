@@ -1,34 +1,24 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Task;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
 /**
- * Class TaskUpdateRequest
- * @package App\Http\Requests
+ * Class UpdateRequest
+ * @package App\Http\Requests\Task
  */
-class TaskUpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'description' => 'max:1000',
+            'due_at' => 'date_format:Y-m-d H:i:s',
         ];
     }
 }

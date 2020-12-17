@@ -18,12 +18,12 @@ class Task extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'due'];
+    protected $fillable = ['title', 'description', 'due_at', 'completed_at'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['due_at', 'completed_at', 'deleted_at'];
 }
