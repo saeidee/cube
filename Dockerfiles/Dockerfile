@@ -25,6 +25,7 @@ RUN apt-get update -y && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install -j$(nproc) gd pdo mbstring pdo_mysql exif pcntl zip bcmath
+RUN pecl install pcov && docker-php-ext-enable pcov
 
 # Download and install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash

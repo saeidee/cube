@@ -16,8 +16,8 @@ class CreateRequest extends Request
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
-            'description' => 'max:1000',
+            'title' => 'required|string|max:255',
+            'description' => 'string|max:1000',
             'due_at' => 'date_format:Y-m-d H:i:s',
         ];
     }

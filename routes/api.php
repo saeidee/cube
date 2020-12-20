@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('tasks', 'TaskController');
+Route::post('/tasks/{id}/task-completion', 'TaskCompletionController@store')->name('tasks.mark-as-complete');
+Route::delete('/tasks/{id}/task-completion', 'TaskCompletionController@destroy')->name('tasks.mark-as-incomplete');

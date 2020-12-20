@@ -31,13 +31,13 @@ interface TaskRepositoryInterface
     /**
      * @param array $fields
      * @param int $id
-     * @return void
+     * @return bool
      */
-    public function update(array $fields, int $id): void;
+    public function update(array $fields, int $id): bool;
 
     /**
      * @param int $id
-     * @return void
+     * @return bool
      */
-    public function delete(int $id): void;
+    public function delete(int $id): bool;
 }

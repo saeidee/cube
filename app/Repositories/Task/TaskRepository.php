@@ -12,6 +12,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
  */
 class TaskRepository implements TaskRepositoryInterface
 {
+    /** @var Task */
     private $task;
 
     /**
@@ -52,20 +53,20 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * @param array $fields
      * @param int $id
-     * @return void
+     * @return bool
      */
-    public function update(array $fields, int $id): void
+    public function update(array $fields, int $id): bool
     {
-        $this->findById($id)->update($fields);
+        return $this->findById($id)->update($fields);
     }
 
     /**
      * @param int $id
-     * @return void
+     * @return bool
      * @throws Exception
      */
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
-        $this->findById($id)->delete();
+        return $this->findById($id)->delete();
     }
 }

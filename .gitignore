@@ -12,3 +12,5 @@ npm-debug.log
 yarn-error.log
 /.docker/
 /.idea/
+/coverage.xml
+/.gradle/
