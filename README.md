@@ -1,5 +1,5 @@
 # Cube
-##### Let's start writing test for your laravel application!
+##### Code testing strategies lead by examples
 
 In this repository I am trying to show how we can start writing Test (__Unit Test__, __Integration Test__) for our __Laravel__ application.
 
